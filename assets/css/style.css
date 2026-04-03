@@ -52,6 +52,18 @@ ul  { list-style: none; }
 }
 
 /* ── Typography helpers ── */
+.typing-text {
+  white-space: normal; /* Berubah dari nowrap ke normal untuk judul yang panjang */
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: var(--cyan); }
+}
+
 .section-label {
   font-family: var(--font-mono);
   font-size: .72rem;

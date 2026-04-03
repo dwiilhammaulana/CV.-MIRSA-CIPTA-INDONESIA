@@ -31,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          obs.unobserve(entry.target);
+        } else {
+          // Hilangkan agar animasi berulang saat scroll balik
+          entry.target.classList.remove('visible');
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
@@ -131,6 +133,118 @@ document.addEventListener('DOMContentLoaded', () => {
       heroEl.addEventListener('mouseenter', () => clearInterval(timer));
       heroEl.addEventListener('mouseleave', () => startAuto());
     }
+  }
+
+  /* ── Typing Effect ── */
+  const typingElements = document.querySelectorAll('.typing-effect');
+  if (typingElements.length) {
+    const typingObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        if (entry.isIntersecting) {
+          if (el.dataset.isTyping === "true") return;
+          
+          const text = el.getAttribute('data-text') || el.innerText;
+          el.innerText = '';
+          el.classList.add('typing-text');
+          el.dataset.isTyping = "true";
+          
+          let i = 0;
+          const speed = 75; // sedikit dipercepat untuk pengalaman scroll yang lebih baik
+          
+          function type() {
+            if (i < text.length) {
+              const char = text.charAt(i);
+              if (char === ' ') {
+                el.innerHTML += '&nbsp;';
+              } else {
+                el.innerText += char;
+              }
+              i++;
+              el.typingTimeout = setTimeout(type, speed);
+            } else {
+              el.dataset.isTyping = "false";
+            }
+          }
+          
+          type();
+        } else {
+          // Reset saat keluar viewport agar bisa berulang
+          clearTimeout(el.typingTimeout);
+          el.innerText = '';
+          el.dataset.isTyping = "false";
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    typingElements.forEach(el => {
+      if (!el.getAttribute('data-text')) {
+        el.setAttribute('data-text', el.innerText);
+      }
+      el.innerText = '';
+      typingObserver.observe(el);
+    });
+  }
+
+  /* ── Counter Animation ── */
+  const counterElements = document.querySelectorAll('.stat-num');
+  if (counterElements.length) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        if (entry.isIntersecting) {
+          if (el.dataset.isCounting === "true") return;
+          
+          const target = parseFloat(el.getAttribute('data-target') || el.innerText.replace(/[^0-9.]/g, ''));
+          const suffix = el.getAttribute('data-suffix') || el.innerText.replace(/[0-9.]/g, '');
+          
+          // Simpan target & suffix jika belum ada
+          if (!el.getAttribute('data-target')) el.setAttribute('data-target', target);
+          if (!el.getAttribute('data-suffix')) el.setAttribute('data-suffix', suffix);
+
+          const duration = 1500;
+          const startTime = performance.now();
+          el.dataset.isCounting = "true";
+          
+          function updateCounter(currentTime) {
+            if (el.dataset.isCounting !== "true") return;
+
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = progress * (2 - progress);
+            
+            const currentValue = Math.floor(easeProgress * target);
+            el.innerText = currentValue + suffix;
+            
+            if (progress < 1) {
+              el.counterRAF = requestAnimationFrame(updateCounter);
+            } else {
+              el.innerText = target + suffix;
+              el.dataset.isCounting = "false";
+            }
+          }
+          
+          el.counterRAF = requestAnimationFrame(updateCounter);
+        } else {
+          // Reset saat keluar viewport agar bisa berulang
+          cancelAnimationFrame(el.counterRAF);
+          el.dataset.isCounting = "false";
+          const suffix = el.getAttribute('data-suffix') || '';
+          el.innerText = '0' + suffix;
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    counterElements.forEach(el => {
+      // Simpan nilai awal dan suffix
+      const initialText = el.innerText;
+      const target = parseFloat(initialText.replace(/[^0-9.]/g, ''));
+      const suffix = initialText.replace(/[0-9.]/g, '');
+      el.setAttribute('data-target', target);
+      el.setAttribute('data-suffix', suffix);
+      el.innerText = '0' + suffix; // Inisialisasi ke 0
+      counterObserver.observe(el);
+    });
   }
 
 });

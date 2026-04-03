@@ -14,13 +14,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ── Hamburger ── */
+  /* ── Hamburger & Mobile Menu ── */
   const hamburger  = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
+  
   if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    // Buat overlay secara dinamis jika belum ada
+    let overlay = document.querySelector('.mobile-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'mobile-overlay';
+      document.body.appendChild(overlay);
+    }
+
+    function toggleMenu() {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      overlay.classList.toggle('visible');
+      // Mencegah scroll saat menu terbuka
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
     mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+      link.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) toggleMenu();
+      });
     });
   }
 
@@ -155,11 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
           function type() {
             if (i < text.length) {
               const char = text.charAt(i);
-              if (char === ' ') {
-                el.innerHTML += '&nbsp;';
-              } else {
-                el.innerText += char;
-              }
+              el.innerText += char;
               i++;
               el.typingTimeout = setTimeout(type, speed);
             } else {

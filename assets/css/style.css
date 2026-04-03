@@ -131,18 +131,22 @@ ul  { list-style: none; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: var(--navy);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  transition: var(--transition);
+  /* Gradasi default: 100% opacity di atas ke 0% di bawah */
+  background: linear-gradient(to bottom, var(--navy) 0%, rgba(11, 17, 32, 0) 100%);
+  border-bottom: none; /* Menghilangkan garis pembatas bawah secara total */
+  height: 100px; /* Tinggi lebih besar untuk menampung gradasi yang halus */
+  display: flex;
+  align-items: flex-start; /* Logo tetap di atas */
+  padding-top: 15px;
+  transition: all .4s ease;
 }
 .nav.scrolled {
-  background: rgba(11,17,32,.97);
-  backdrop-filter: blur(16px);
+  background: var(--navy); /* Warna solid saat di-scroll */
+  height: 68px; /* Kembali ke tinggi standar */
+  padding-top: 0;
+  align-items: center;
+  border-bottom: none; /* Menghilangkan garis pembatas bawah */
   box-shadow: 0 2px 32px rgba(0,0,0,.45);
-}
-.nav.always-dark {
-  background: rgba(11,17,32,.97);
-  backdrop-filter: blur(16px);
 }
 
 .nav__inner {
@@ -151,7 +155,7 @@ ul  { list-style: none; }
   justify-content: space-between;
   width: min(1240px, 100% - 2.5rem);
   margin-inline: auto;
-  height: 68px;
+  height: 68px; /* Pastikan tinggi inner tetap konsisten */
 }
 
 .nav__logo { display: flex; align-items: center; gap: .9rem; }

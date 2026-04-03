@@ -478,29 +478,52 @@
 }
 .produk-card p { color: var(--gray); font-size: .875rem; line-height: 1.65; }
 
+/* ════════════ CENTER LAYOUT (GLOBAL) ════════════ */
+.center-layout { padding: 8rem 0; background: var(--white); }
+.center-text-block { text-align: center; max-width: 800px; margin: 0 auto 5rem; }
+.center-title { 
+  font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.5rem); 
+  color: var(--navy); line-height: 1.1; margin-bottom: 2rem;
+}
+.center-desc { color: var(--gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; }
+
 /* ════════════ KLIEN ════════════ */
-.klien-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 4rem; }
+.klien-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 6rem; }
 .klien-item {
-  border: 1.5px solid #d8e4f0; border-radius: 10px;
-  padding: 2rem 1.5rem; display: flex; align-items: center;
-  justify-content: center; text-align: center; transition: var(--transition);
+  background: var(--light);
+  border: 1px solid #e4ecf4; border-radius: 12px;
+  padding: 3rem 2rem; display: flex; align-items: center;
+  justify-content: center; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .klien-item:hover {
   border-color: var(--cyan);
-  background: rgba(43,127,232,.04);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(43,127,232,.1);
+  background: var(--white);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(43,127,232,0.12);
 }
-.klien-item span { font-weight: 600; font-size: .9rem; color: var(--navy); }
-.klien-tagline { text-align: center; padding: 3rem 0 1rem; border-top: 1px solid #e5eaf1; }
+.klien-item span { 
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.1rem; color: var(--navy); 
+  letter-spacing: 0.02em;
+}
+.klien-tagline { 
+  text-align: center; padding: 5rem 0 2rem; 
+  border-top: 1px solid #eee;
+  max-width: 900px; margin: 0 auto;
+}
 .klien-tagline blockquote {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem); color: var(--navy); letter-spacing: .05em;
+  font-size: clamp(1.8rem, 4vw, 3rem); 
+  color: var(--navy); 
+  font-style: italic;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
 }
 .klien-tagline cite {
-  display: block; margin-top: .75rem; color: var(--gray);
+  display: block; color: var(--cyan);
   font-style: normal; font-family: var(--font-mono);
-  font-size: .75rem; letter-spacing: .15em; text-transform: uppercase;
+  font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 700;
 }
 
 /* ════════════ KONTAK ════════════ */

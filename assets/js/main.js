@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Nav scroll effect ── */
   const nav = document.getElementById('nav');
   if (nav) {
-    if (!nav.classList.contains('always-dark')) {
-      window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 60);
-      });
-    }
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+    // Panggil sekali saat load jika sudah di-scroll
+    nav.classList.toggle('scrolled', window.scrollY > 60);
   }
 
   /* ── Hamburger & Mobile Menu ── */

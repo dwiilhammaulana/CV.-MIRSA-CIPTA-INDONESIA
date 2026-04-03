@@ -39,6 +39,9 @@ body {
   line-height: 1.65;
   overflow-x: hidden;
 }
+main {
+  margin-bottom: 6rem; /* Memberikan jarak antara konten utama dan footer */
+}
 img { display: block; width: 100%; object-fit: cover; }
 a   { text-decoration: none; color: inherit; }
 ul  { list-style: none; }

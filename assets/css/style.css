@@ -94,6 +94,35 @@ ul  { list-style: none; }
 .section-header { text-align: center; margin-bottom: 4rem; }
 .section-header .section-desc { margin-inline: auto; }
 
+.page-content {
+  padding: 6rem 0;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumb {
+  padding: 1.5rem 0;
+  background: var(--light);
+  border-bottom: 1px solid #e2e8f0;
+}
+.breadcrumb__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+.breadcrumb a {
+  color: var(--navy);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.breadcrumb a:hover {
+  color: var(--cyan);
+}
+.breadcrumb__sep {
+  color: #cbd5e1;
+}
+
 /* ── Buttons ── */
 .btn {
   display: inline-flex;

@@ -291,8 +291,41 @@
   pointer-events: none;
 }
 
+/* ════════════ HOME KLIEN SECTION ════════════ */
+.home-klien { padding: 7rem 0; background: var(--white); }
+.home-klien__grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1.5rem; 
+}
+.home-klien__item {
+  background: var(--light);
+  border: 1px solid #e4ecf4; border-radius: 12px;
+  padding: 2.5rem 1.5rem; display: flex; align-items: center;
+  justify-content: center; text-align: center; transition: all 0.4s ease;
+}
+.home-klien__item:hover {
+  border-color: var(--cyan);
+  background: var(--white);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(43,127,232,0.1);
+}
+.home-klien__item span { 
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1rem; color: var(--navy); 
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .home-klien__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .home-klien__grid { grid-template-columns: 1fr; }
+}
+
 /* ════════════ HOME QUICK NAV CARDS ════════════ */
-.home-nav { padding: 5rem 0 7rem; background: var(--light); }
+.home-nav { padding: 8rem 0 10rem; background: var(--light); }
+.home-nav .section-header { margin-bottom: 5rem; }
 .home-nav__grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
 }
